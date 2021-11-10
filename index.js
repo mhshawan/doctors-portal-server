@@ -5,7 +5,7 @@ const admin = require("firebase-admin");
 require('dotenv').config()
 const { MongoClient } = require('mongodb');
 const port = process.env.PORT || 5000
-
+// https://immense-wildwood-34940.herokuapp.com/ ---- live link
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 admin.initializeApp({
@@ -48,7 +48,7 @@ async function run() {
 
         app.get('/appointments', verifyToken, async (req, res) => {
             const email = req.query.email;
-            const date = new Date(req.query.date).toLocaleDateString();
+            const date = req.query.date;
             const query = { email: email, date: date };
             const cursor = appointmentsCollection.find(query);
             const appointments = await cursor.toArray();
